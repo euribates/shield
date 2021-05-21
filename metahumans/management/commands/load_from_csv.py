@@ -22,13 +22,13 @@ class Command(BaseCommand):
         filename = options.get('filename')
         if not os.path.exists(filename):
             self.error_file_not_exists(filename)
-        print("Importando metahumanos desde {filename)")
+        print(f"Importando metahumanos desde {filename}")
         with open(filename, encoding='utf-8') as f:
             reader = csv.reader(f, delimiter=';')
             next(reader)
             counter = 0
             for (nombre, identidad, nivel, equipo, cuartel, poderes) in reader:
-                print(f" - Creando metahumano {nombre}", end=' ')
+                print(f" - Creando metahumano {nombre}", end=' ', flush=True)
                 if Metahumano.objects.filter(nombre=nombre).exists():
                     print("[skipped]")
                     continue
@@ -49,7 +49,9 @@ class Command(BaseCommand):
                     nombre_poder = nombre_poder.strip().lower()
                     poder, _ = Poder.objects.get_or_create(nombre=nombre_poder)
                     set_poderes.add(poder)
-                metahumano.poderes_set = set_poderes
+                    print(".", end="", flush=True)
+                metahumano.save()
+                metahumano.poderes.set(set_poderes)
                 metahumano.save()
                 counter += 1
                 print("[ok]")

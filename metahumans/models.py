@@ -32,6 +32,11 @@ class Metahumano(models.Model):
         on_delete=models.PROTECT,
     )
     poderes = models.ManyToManyField(Poder)
+    activo = models.BooleanField(default=True)
+    foto = models.ImageField(blank=True, null=True, upload_to='metahumans')
+
+    def peligroso(self):
+        return self.nivel >= 50
 
     def __str__(self):
         return f"{self.nombre} [{self.nivel}]"
