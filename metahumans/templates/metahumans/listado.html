@@ -1,0 +1,15 @@
+<table>
+    {% for fila in filas %}
+      <tr>
+      <td>{{ fila.nombre }}</td>
+      <td>nivel de amenaza:
+        <strong>{{ fila.nivel }}</strong>
+      </td>
+      <td>
+      {% if fila.peligroso %}
+         [Peligroso/a]
+      {% endif %}
+      </td>
+      </tr>
+    {% endfor %}
+</table>
