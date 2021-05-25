@@ -33,7 +33,11 @@ class Metahumano(models.Model):
     )
     poderes = models.ManyToManyField(Poder)
     activo = models.BooleanField(default=True)
-    foto = models.ImageField(blank=True, null=True, upload_to='metahumans')
+    foto = models.ImageField(
+        blank=True,
+        null=True,
+        upload_to='metahumans',
+    )
 
     def peligroso(self):
         return self.nivel >= 50
@@ -41,3 +45,5 @@ class Metahumano(models.Model):
     def __str__(self):
         return f"{self.nombre} [{self.nivel}]"
 
+    def num_poderes(self):
+        return self.poderes.count()
