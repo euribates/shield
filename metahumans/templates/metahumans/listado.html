@@ -1,31 +1,15 @@
 {% extends 'comun/base.html' %}
 
 {% block content %}
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Nivel de amenaza</th>
-      <th>Peligroso</th>
-    </tr>
-  </thead>
-    {% for fila in filas %}
-      <tr>
-      <td><a class="btn btn-warning" href="/metahumano/{{ fila.pk }}/">{{ fila.nombre }}</a></td>
-      <td>nivel de amenaza:
-        <strong>{{ fila.nivel }}</strong>
-      </td>
-      <td>
-      {% if fila.peligroso %}
-         <span class="peligroso">Peligroso/a</span>
-         <ul>
-            {% for poder in fila.poderes.all %}
-              <li> {{ poder.nombre }} </li>
-            {% endfor %}  
-         </ul>
-      {% endif %}   
-      </td>
-    </tr>
-    {% endfor %}
-</table>
+
+<div class="container">
+<div class="row">
+{% for mh in filas %}
+  <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      {% include 'metahumans/metahuman_card.html' %}
+  </div>
+{% endfor %}
+</div>
+</div>
+    
 {% endblock content %}
