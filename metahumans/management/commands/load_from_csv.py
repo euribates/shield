@@ -48,8 +48,6 @@ class Command(BaseCommand):
             counter = 0
             for row in reader:
                 name = row['name']
-                print(name, name_to_foto_filename(name))
-                continue
                 print(f" - Creando metahumano {name}", end=' ', flush=True)
                 if Metahuman.objects.filter(name=name).exists():
                     print("[skipped]")
