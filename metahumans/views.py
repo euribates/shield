@@ -1,18 +1,19 @@
 from django.shortcuts import render
 
-from .models import Metahumano
+from .models import Metahuman
 
 # Create your views here.
 
-def detalle(request, pk):
-    metahuman = Metahumano.objects.get(id=pk)
-    return render(request, 'metahumans/detalle.html', {
-        "mh": metahuman, 
+def metahuman_detail(request, pk):
+    metahuman = Metahuman.objects.get(id=pk)
+    return render(request, 'metahumans/metahuman_detail.html', {
+        "metahuman": metahuman, 
     })
 
 
-def listado_metahumans(request):
-    filas = Metahumano.objects.all()
-    return render(request, 'metahumans/listado.html', {
-        "filas": filas,
+def metahumans_list(request):
+    metahumans = Metahuman.objects.all()
+    return render(request, 'metahumans/metahumans_list.html', {
+        "title": "Relación de metahumanos registrados",
+        "metahumans": metahumans,
     })

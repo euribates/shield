@@ -1,0 +1,20 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Nivel</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for mh in metahumanos %}<tr>
+        <td> {{ mh.nombre }} </td>
+        <td> {{ mh.nivel }} </td>
+    </tr>{% endfor %}
+  </tbody>
+</table>
+    
+{% endblock content %}

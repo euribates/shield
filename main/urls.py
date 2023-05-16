@@ -19,13 +19,18 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 import metahumans.views
+import common.views
 
 urlpatterns = [
+    path('', common.views.homepage),
+    path('listado/', metahumans.views.metahumans_list),
+    path('metahumano/<int:pk>/', metahumans.views.metahuman_detail),
     path('admin/', admin.site.urls),
-    path('listado/', metahumans.views.listado_metahumans),
-    path('metahumano/<int:pk>/', metahumans.views.detalle),
 ]
 
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT,
+        )

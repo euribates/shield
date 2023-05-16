@@ -3,61 +3,59 @@ from django.utils.html import format_html
 
 # Register your models here.
 
-from .models import Equipo, Poder, Metahumano
+from .models import Team, Power, Metahuman
 
-class PoderAdmin(admin.ModelAdmin):
+
+class PowerAdmin(admin.ModelAdmin):
     search_fields = (
-        'nombre',
+        'name',
     )
-    list_display = ('id', 'nombre')
+    list_display = ('id', 'name')
 
 
-admin.site.register(Poder, PoderAdmin)
+admin.site.register(Power, PowerAdmin)
 
 
-class EquipoAdmin(admin.ModelAdmin):
+class TeamAdmin(admin.ModelAdmin):
     search_fields = (
-        'nombre',
-        'cuartel',
+        'name',
+        'headquarter',
     )
-    list_display = ('id', 'nombre', 'cuartel')
-
-admin.site.register(Equipo, EquipoAdmin)
+    list_display = ('id', 'name', 'headquarter')
 
 
-class MetahumanoAdmin(admin.ModelAdmin):
+admin.site.register(Team, TeamAdmin)
+
+
+class MetahumanAdmin(admin.ModelAdmin):
     search_fields = (
-        'nombre',
-        'identidad',
-        'equipo__nombre',
+        'name',
+        'team__name',
     )
     list_display = (
         'id',
-        'nombre',
-        'num_poderes',
-        'peligrosidad',
-        'en_equipo',
-        'foto',
+        'name',
+        'num_powers',
+        'danger_level',
+        'in_team',
+        'photo',
     )
     list_filter = (
-        'equipo',
-        'nivel',
+        'team',
+        'level',
     )
-    exclude = ('activo',)
+    exclude = ('is_active',)
 
-    def peligrosidad(self, mh):
-        if mh.nivel <= 50:
-            return format_html(f"<strong>{mh.nivel}</strong>")
+    def danger_level(self, mh):
+        if mh.level <= 50:
+            return format_html(f"<strong>{mh.level}</strong>")
         else:
-            return str(mh.nivel)
+            return str(mh.level)
 
-    def en_equipo(self, mh):
-        if mh.equipo:
-            return True
-        else:
-            return False
+    def in_team(self, mh):
+        return mh.team.exists()
 
-    en_equipo.boolean = True
+    in_team.boolean = True
 
-admin.site.register(Metahumano, MetahumanoAdmin)
 
+admin.site.register(Metahuman, MetahumanAdmin)
